@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Необходимо скопировать и вставить в данный скрипт все функции из 4 задания.
+Необходимо реализовать функцию:
+mathOperation(arg1, arg2, operation);
+Параметры:
+arg1 - первое число.
+arg2 - второе число.
+operation - строка, которая содержит один символ из: "+", "-", "*", "/".
+Функция mathOperation должна вернуть результат операции, который был передан в
+параметр operation для двух первых аргументов (arg1 и arg2).
+Функция mathOperation должна использовать для вычисления функции из 4 задания.
+
+Примеры вызова функции:
+console.log(mathOperation(5, 3, "+")); // 8
+console.log(mathOperation(5, 3, ":)")); // NaN
+
+Функции mathOperation всегда передаются корректные числа, проверки на NaN,
+Infinity делать не нужно, однако, в случае если был передан некорректный
+аргумент в параметр operation, необходимо вернуть NaN.
+
+Необходимо для всех функций прописать комментарии jsdoc https://jsdoc.app/.
+-->
+<script>
+  "use strict";
+
+  function getSum(param1, param2) {
+    /**
+     * Возвращает сумму двух чисел
+     * @param {number} param1 первое число.
+     * @param {number} param2 второе число.
+    */
+    return param1 + param2;
+  }
+
+  function getDifference(param1, param2) {
+    /**
+     * Возвращает разность двух чисел (из большего вычитает меньшее)
+     * @param {number} param1 первое число.
+     * @param {number} param2 второе число.
+    */
+    if (param1 >= param2) {
+      return param1 - param2;
+    } else {
+      return param2 - param1;
+    }
+  }
+  
+  function getMultiply(param1, param2) {
+    /**
+     * Возвращает произведение двух чисел
+     * @param {number} param1 первое число.
+     * @param {number} param2 второе число.
+    */
+    return param1 * param2;
+  }
+
+  function getDivision(param1, param2) {
+    /**
+     * Возвращает частное двух чисел
+     * @param {number} param1 первое число.
+     * @param {number} param2 второе число.
+    */
+    return param1 / param2;
+  }
+
+  function mathOperation(arg1, arg2, operation) {
+    /**
+     * Возвращает результат операции, который был передан в параметр operation для двух первых аргументов
+     * @param {number} arg1 первое число.
+     * @param {number} arg2 второе число.
+     * @param {number} operation операция ("+", "-", "*", "/").
+    */
+    switch(operation) {
+      case '+':
+        return getSum(arg1, arg2);
+        break;
+      case '-':
+        return getDifference(arg1, arg2);
+        break;
+      case '*':
+        return getMultiply(arg1, arg2);
+        break;
+      case '/':
+        return getDivision(arg1, arg2);
+        break;
+      default:
+        return NaN
+    }
+  }
+    
+  console.log(mathOperation(5, 3, '+'));  // -> 8
+  console.log(mathOperation(2, 6, '-'));  // -> 4
+  console.log(mathOperation(5, 3, '-'));  // -> 2
+  console.log(mathOperation(7, 7, '-'));  // -> 0
+  console.log(mathOperation(2, 6, '*'));  // -> 12
+  console.log(mathOperation(4, 5, '/'));  // -> 0.8
+  console.log(mathOperation(5, 3, ":)")); // -> NaN
+</script>
+</body>
+</html>
