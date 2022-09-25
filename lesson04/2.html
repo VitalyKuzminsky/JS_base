@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Необязательное задание, но желательно сделать.
+
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для поста в социальной сети.
+Названия: `PostES5` для es5 стиля и `PostES6` для es6 стиля.
+Пост должен хранить:
+1. Автора поста (имени достаточно).
+2. Текст поста.
+3. Дату и время последнего изменения поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Каждому экземпляру объекта должен быть доступен метод `edit`, который будет
+менять текст поста.
+
+---
+
+Необходимо создать функцию-конструктор/класс для закрепленного поста в
+социальной сети.
+Названия: `AttachedPostES5` для es5 стиля и `AttachedPostES6` для es6 стиля.
+Закрепленный пост должен наследоваться от обычного поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Закрепленный пост должен иметь свойство `highlighted`, в котором по умолчанию
+будет лежать значение false (это свойство будет обозначать, будет ли наш
+закрепленный пост подсвечен).
+У экземпляров объекта закрепленного поста должен быть метод с названием
+`makeTextHighlighted`, который сделает так, чтобы наш пост стал подсвеченным
+(будет менять свойство `highlighted`).
+
+---
+
+Подсказки:
+1. Задание сложное, советую делать по аналогии с примером на онлайн-занятии.
+2. Обратите внимание что пост хранит "дату и время последнего изменения
+поста", это значит что если пост кто-то изменит (например вызовет какой-то
+метод, который изменит что-то в посте), дата и время последнего изменения
+поста также должна измениться.
+3. Выполняйте все по порядку, не стоит пытаться сделать все сразу, иначе можно
+что-нибудь пропустить.
+4. Если непонятно условие - задайте вопрос.
+-->
+<script>
+  "use strict";
+
+  // Задача 1
+  console.log('Задача 1:')
+
+  // ES5
+  /**
+   * Функция-конструктор поста. Принимает имя и текст.
+   * Дата и время создания поста проставляется автоматически
+   * @param {string} name Автора поста (имени достаточно)
+   * @param {string} text Текст поста
+  */
+  function PostES5(name, text) {
+    this.name = name;
+    this.text = text;
+    this.datePost = new Date();
+  }
+
+  /**
+   * Метод объекта типа PostES5
+   * @param {string} text Текст поста
+   * Дата и время последнего изменения поста проставляется автоматически
+   */
+  PostES5.prototype.edit = function(text) {
+    this.text = text;
+    this.datePost = new Date();
+  };
+
+  const postES5_1 = new PostES5('Max', 'Lorem, ipsum dolor.');
+  console.log(`Автор теста ${postES5_1.name} написал: ${postES5_1.text}
+  \nВремя создания: ${postES5_1.datePost}`);
+  postES5_1.edit('Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam, quidem.');
+  console.log(`Тект автора ${postES5_1.name} изменён на: ${postES5_1.text}
+  \nВремя редактирования: ${postES5_1.datePost}`);
+
+  // ES6
+  /**
+     * Класс для создания поста. Принимает имя и текст.
+     * @constructor
+     * @param {string} name Автора поста (имени достаточно)
+     * @param {string} text Текст поста
+     * Дата и время создания поста проставляется автоматически
+  */
+  class PostES6 {
+    constructor(name, text) {
+      this.name = name;
+      this.text = text;
+      this.datePost = new Date();
+    }
+
+    /** 
+     * Метод экземпляра класса PostES6
+     * Примает текст, сохраняет вместо старого. 
+     * Проставляет дату и время изменения.
+     * @param {string} text новый поста
+     */
+    edit(text) {
+      this.text = text;
+      this.datePost = new Date();
+    }
+  }
+
+  const postES6_1 = new PostES6('Leo', 'Lorem, ipsum dolor.');
+  console.log(`Автор теста ${postES6_1.name} написал: ${postES6_1.text}
+  \nВремя создания: ${postES6_1.datePost}`);
+  postES6_1.edit('Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam, quidem.');
+  console.log(`Тект автора ${postES6_1.name} изменён на: ${postES6_1.text}
+  \nВремя редактирования: ${postES6_1.datePost}`);
+
+
+
+
+
+  // Задача 2
+  console.log(`\n\nЗадача 2:`)
+  // ES5
+  /**
+   * Функция-конструктор для закрепленного поста в социальной сети.
+   * Принимает имя и текст.
+   * Дата и время создания поста проставляется автоматически
+   * Имеет свойство `highlighted`, по умолчанию false. 
+   * Обозначает, что закрепленный пост подсвечен или нет.
+   * @param {string} name Автора поста (имени достаточно)
+   * @param {string} text Текст поста
+  */
+  function AttachedPostES5(name, text) {
+    PostES5.call(this, name, text);
+    this.highlighted = false;
+  }
+  
+  AttachedPostES5.prototype = Object.create(PostES5.prototype);
+  AttachedPostES5.prototype.constructor = AttachedPostES5;
+  /**
+   * Метод объекта типа AttachedPostES5
+   * При вызове подсвечивает закрепленный пост.
+   * Дата и время последнего изменения поста проставляется автоматически
+   */
+  AttachedPostES5.prototype.makeTextHighlighted = function() {
+    this.highlighted = true;
+  };
+
+  const attachedES5_1 = new AttachedPostES5('Kate', 'Lorem, ipsum dolor.');
+  // console.log(attachedES5_1);
+  console.log(`Автор теста ${attachedES5_1.name} написал: ${attachedES5_1.text}
+  \nВремя создания: ${attachedES5_1.datePost}.\nТекст подсвечен: ${attachedES5_1.highlighted}`);
+  attachedES5_1.makeTextHighlighted();
+  attachedES5_1.edit('Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam, quidem.');
+  console.log(`Тект автора ${attachedES5_1.name} изменён на: ${attachedES5_1.text}
+  \nВремя редактирования: ${postES6_1.datePost}.\nТекст подсвечен: ${attachedES5_1.highlighted}`);
+
+  // ES6
+  /**
+     * Класс для создания закрепленного поста. Принимает имя и текст.
+     * @constructor
+     * @param {string} name Автора поста (имени достаточно)
+     * @param {string} text Текст поста
+     * Дата и время создания поста проставляется автоматически
+  */
+  class AttachedPostES6 extends PostES6 {
+    highlighted = false;
+
+    /** 
+     * Метод экземпляра класса AttachedPostES6
+     * При вызове подсвечивает закрепленный пост.
+     * Дата и время последнего изменения поста проставляется автоматически
+     */
+    makeTextHighlighted() {
+      this.highlighted = true;
+      this.date = new Date();
+    }
+  }
+
+  const attachedPostES6_1 = new AttachedPostES6('Bob', 'Lorem, ipsum dolor.');
+  // console.log(attachedPostES6);
+  console.log(`Автор теста ${attachedPostES6_1.name} написал: ${attachedPostES6_1.text}
+  \nВремя создания: ${attachedPostES6_1.datePost}.\nТекст подсвечен: ${attachedPostES6_1.highlighted}`);
+  attachedPostES6_1.makeTextHighlighted();
+  attachedPostES6_1.edit('Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam, quidem.');
+  console.log(`Тект автора ${attachedPostES6_1.name} изменён на: ${attachedPostES6_1.text}
+  \nВремя редактирования: ${attachedPostES6_1.datePost}.\nТекст подсвечен: ${attachedPostES6_1.highlighted}`);
+  
+</script>
+</body>
+</html>

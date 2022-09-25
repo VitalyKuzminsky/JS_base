@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для продукта.
+Названия: `ProductES5` для es5 стиля, `ProductES6` для es6 стиля.
+При создании объекта от функции-конструктора/класса необходимо передавать имя
+и цену товара, эта информация должна быть сохранена в объекте.
+Также у объекта должна быть возможность выполнить метод `make25Discount`, данный
+метод должен уменьшать стоимость продукта на 25%.
+Необходимо продемонстрировать работу с объектом (в свободной форме).
+-->
+<script>
+  "use strict";
+
+  // ES5
+
+  /**
+   * Функция-конструктор продукта. Принимает название продукта и цену.
+   * @param {string} name название продукта
+   * @param {number} cost продукта
+  */
+  function ProductES5(name, cost) {
+    this.name = name;
+    this.cost = cost;
+  }
+
+  /**
+   * Метод объекта типа ProductES5
+   * устанавливают дисконт на продукт 25%
+   */
+  ProductES5.prototype.make25Discount = function() {
+    this.cost *= 0.75;
+  };
+
+  const productES5_1 = new ProductES5('Продукт 1', 5);
+  console.log(`Выбранный товар ${productES5_1.name} стоит: ${productES5_1.cost} руб.`);
+  productES5_1.make25Discount();
+  console.log(`С учётом Вашей скидки товар ${productES5_1.name} стоит: ${productES5_1.cost} руб.`);
+
+  
+  // ES6
+
+  /**
+   * Класс для создания продукта. Принимает название продукта и цену.
+   * @constructor
+   * @param {string} name название продукта
+   * @param {number} cost продукта
+  */
+  class ProductES6 {
+    constructor(name, cost) {
+      this.name = name;
+      this.cost = cost;
+    }
+
+    /** 
+     * Метод экземпляра класса ProductES6
+     * устанавливают дисконт на продукт 25%
+     */
+    make25Discount() {
+      this.cost *= 0.75;
+    }
+  }
+
+  const productES6 = new ProductES6('Продукт 2', 10);
+  console.log(`Выбранный товар ${productES6.name} стоит: ${productES6.cost} руб.`);
+  productES6.make25Discount();
+  console.log(`С учётом Вашей скидки товар ${productES6.name} стоит: ${productES6.cost} руб.`);
+</script>
+</body>
+</html>
